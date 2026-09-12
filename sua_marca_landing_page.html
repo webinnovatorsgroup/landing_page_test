@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SUA MARCA — Viva o Momento</title>
+  <meta name="description" content="Uma landing page conceitual inspirada na experiência SUA MARCA.">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@700;800&display=swap');
+
+    :root{
+      --red:#e50914;
+      --dark:#090909;
+      --cream:#fff8ed;
+      --white:#fff;
+      --muted:#c9c9c9;
+      --line:rgba(255,255,255,.14);
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:"DM Sans",sans-serif;
+      background:var(--dark);
+      color:var(--white);
+      overflow-x:hidden;
+    }
+    a{text-decoration:none;color:inherit}
+    button{font:inherit}
+
+    .noise{
+      position:fixed;inset:0;pointer-events:none;opacity:.045;z-index:20;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.9'/%3E%3C/svg%3E");
+    }
+
+    nav{
+      position:absolute;top:0;left:0;right:0;z-index:10;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:24px 6vw;
+    }
+    .logo{
+      display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.04em;
+      font-size:20px;
+    }
+    .logo-mark{
+      width:34px;height:34px;border-radius:50%;
+      background:var(--white);position:relative;
+      box-shadow:0 0 0 7px rgba(255,255,255,.12);
+    }
+    .logo-mark:after{
+      content:"";position:absolute;width:20px;height:6px;border-radius:50%;
+      background:var(--red);left:7px;top:14px;transform:rotate(-17deg);
+    }
+    .navlinks{display:flex;gap:32px;color:#eee;font-size:14px}
+    .navlinks a{opacity:.82;transition:.2s}
+    .navlinks a:hover{opacity:1;color:#fff}
+    .menu{
+      display:none;border:1px solid var(--line);background:transparent;color:#fff;
+      width:42px;height:42px;border-radius:50%;
+    }
+
+    .hero{
+      min-height:100vh;position:relative;display:grid;place-items:center;
+      overflow:hidden;
+      background:
+        radial-gradient(circle at 73% 47%, rgba(229,9,20,.55), transparent 28%),
+        radial-gradient(circle at 20% 20%, rgba(229,9,20,.15), transparent 25%),
+        linear-gradient(125deg,#080808 0%,#130506 48%,#270306 100%);
+    }
+    .hero:before{
+      content:"";position:absolute;width:65vw;height:65vw;right:-24vw;top:8vh;
+      border:1px solid rgba(255,255,255,.11);border-radius:50%;
+      box-shadow:0 0 0 90px rgba(255,255,255,.025),0 0 0 180px rgba(255,255,255,.018);
+    }
+    .hero-content{
+      width:min(1200px,88vw);display:grid;grid-template-columns:1.05fr .95fr;
+      align-items:center;gap:30px;padding-top:50px;
+    }
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:9px;font-size:12px;text-transform:uppercase;
+      letter-spacing:.2em;color:#fff;margin-bottom:22px;
+    }
+    .eyebrow i{width:7px;height:7px;border-radius:50%;background:var(--red);display:inline-block;box-shadow:0 0 20px var(--red)}
+    h1{
+      font-family:"Playfair Display",serif;font-size:clamp(58px,8vw,120px);
+      line-height:.86;letter-spacing:-.065em;max-width:720px;
+    }
+    h1 span{color:var(--red)}
+    .hero-copy{
+      margin:28px 0 34px;max-width:540px;color:#d6d6d6;font-size:17px;line-height:1.7;
+    }
+    .actions{display:flex;gap:14px;flex-wrap:wrap}
+    .btn{
+      border:0;border-radius:999px;padding:15px 24px;cursor:pointer;font-weight:700;
+      transition:transform .2s,box-shadow .2s;
+    }
+    .btn:hover{transform:translateY(-3px)}
+    .primary{background:var(--red);color:white;box-shadow:0 14px 35px rgba(229,9,20,.28)}
+    .ghost{background:rgba(255,255,255,.06);color:#fff;border:1px solid var(--line)}
+
+    .product-stage{position:relative;min-height:600px;display:grid;place-items:center}
+    .glow{
+      position:absolute;width:430px;height:430px;border-radius:50%;
+      background:radial-gradient(circle,rgba(229,9,20,.55),rgba(229,9,20,0) 68%);
+      filter:blur(8px);
+    }
+    .hero-product{position:relative;width:min(470px,92%);max-height:590px;object-fit:contain;filter:drop-shadow(25px 35px 35px rgba(0,0,0,.65));transform:rotate(3deg);transition:transform .25s ease;}
+    .hero-product:hover{transform:rotate(0deg) translateY(-6px) scale(1.015)}
+    .bottle{
+      position:relative;width:170px;height:455px;border-radius:42px 42px 55px 55px;
+      background:linear-gradient(90deg,#160604,#4a0b06 27%,#170503 53%,#6c130b 75%,#160503);
+      transform:rotate(7deg);
+      box-shadow:
+        inset 12px 0 16px rgba(255,255,255,.08),
+        inset -16px 0 20px rgba(0,0,0,.6),
+        28px 35px 60px rgba(0,0,0,.7),
+        0 0 80px rgba(229,9,20,.18);
+    }
+    .bottle:before{
+      content:"";position:absolute;top:-82px;left:53px;width:64px;height:105px;
+      border-radius:18px 18px 8px 8px;
+      background:linear-gradient(90deg,#170504,#62120b,#130303);
+      box-shadow:inset 7px 0 8px rgba(255,255,255,.08);
+    }
+    .bottle:after{
+      content:"";position:absolute;top:-94px;left:48px;width:74px;height:22px;border-radius:5px;
+      background:#ded6c5;box-shadow:0 3px 0 #a69f91;
+    }
+    .label{
+      position:absolute;left:-10px;right:-10px;top:165px;height:125px;background:#fff;
+      transform:rotate(-2deg);display:grid;place-items:center;color:var(--red);
+      box-shadow:0 5px 20px rgba(0,0,0,.3);
+    }
+    .label span{
+      font-family:"Playfair Display",serif;font-size:30px;font-weight:800;
+      transform:rotate(-3deg);letter-spacing:-.06em;
+    }
+    .ice{
+      position:absolute;width:70px;height:70px;border:1px solid rgba(255,255,255,.4);
+      background:linear-gradient(135deg,rgba(255,255,255,.25),rgba(255,255,255,.03));
+      backdrop-filter:blur(5px);transform:rotate(28deg);border-radius:13px;
+    }
+    .ice.one{right:8%;top:23%}.ice.two{left:8%;bottom:18%;width:50px;height:50px;transform:rotate(13deg)}
+    .spark{
+      position:absolute;width:4px;height:4px;border-radius:50%;background:#fff;
+      box-shadow:0 0 15px 3px rgba(255,255,255,.7);
+    }
+    .spark.s1{left:17%;top:22%}.spark.s2{right:16%;top:34%}.spark.s3{right:22%;bottom:19%}
+
+    .ticker{
+      border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+      padding:15px 0;overflow:hidden;white-space:nowrap;background:#0d0d0d;
+    }
+    .ticker-track{display:inline-block;animation:scroll 24s linear infinite}
+    .ticker span{margin:0 26px;font-weight:700;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#ddd}
+    .ticker b{color:var(--red)}
+    @keyframes scroll{to{transform:translateX(-50%)}}
+
+    section{padding:120px 6vw}
+    .section-inner{width:min(1200px,88vw);margin:auto}
+    .intro{display:grid;grid-template-columns:.8fr 1.2fr;gap:80px;align-items:end}
+    .kicker{color:var(--red);text-transform:uppercase;letter-spacing:.18em;font-size:11px;font-weight:700;margin-bottom:16px}
+    h2{font-family:"Playfair Display",serif;font-size:clamp(42px,5vw,74px);line-height:.95;letter-spacing:-.05em}
+    .intro p{font-size:18px;line-height:1.8;color:#aaa;max-width:620px}
+
+    .cards{
+      margin-top:70px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;
+    }
+    .card{
+      min-height:350px;padding:30px;border-radius:28px;position:relative;overflow:hidden;
+      background:linear-gradient(145deg,#171717,#0e0e0e);border:1px solid var(--line);
+      transition:transform .3s,border-color .3s;
+    }
+    .card:hover{transform:translateY(-8px);border-color:rgba(229,9,20,.55)}
+    .card .num{font-size:12px;color:#777}
+    .card h3{font-family:"Playfair Display",serif;font-size:34px;margin-top:110px;position:relative;z-index:2}
+    .card p{color:#999;margin-top:12px;line-height:1.6;position:relative;z-index:2}
+    .card .orb{position:absolute;width:190px;height:190px;border-radius:50%;right:-45px;top:-45px;background:rgba(229,9,20,.18);filter:blur(1px)}
+    .card .orb:after{content:"";position:absolute;inset:25px;border:1px solid rgba(255,255,255,.18);border-radius:50%}
+
+    .experience{
+      background:var(--cream);color:#111;position:relative;overflow:hidden;
+    }
+    .experience:after{
+      content:"SUA MARCA";position:absolute;right:-50px;bottom:-30px;
+      font-family:"Playfair Display",serif;font-size:16vw;font-weight:800;
+      color:rgba(229,9,20,.06);letter-spacing:-.08em;pointer-events:none;
+    }
+    .experience-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+    .experience h2{font-size:clamp(50px,6vw,90px)}
+    .experience p{margin-top:25px;color:#555;font-size:17px;line-height:1.8;max-width:520px}
+    .quote{
+      margin-top:30px;padding-left:20px;border-left:3px solid var(--red);
+      font-weight:700;color:#222;
+    }
+    .poster{
+      min-height:520px;border-radius:30px;background:
+      radial-gradient(circle at 70% 30%,rgba(255,255,255,.17),transparent 20%),
+      linear-gradient(145deg,#c90712,#780007);
+      position:relative;overflow:hidden;box-shadow:0 30px 70px rgba(72,0,0,.18);
+    }
+    .poster:before{
+      content:"";position:absolute;width:480px;height:480px;border:1px solid rgba(255,255,255,.22);
+      border-radius:50%;left:-120px;top:70px;box-shadow:0 0 0 55px rgba(255,255,255,.04),0 0 0 110px rgba(255,255,255,.03);
+    }
+    .poster-bottle{
+      position:absolute;width:140px;height:360px;left:50%;top:50%;
+      transform:translate(-50%,-47%) rotate(-10deg);border-radius:45px;
+      background:linear-gradient(90deg,#270202,#8b120b 30%,#310303 55%,#a61c11 75%,#280202);
+      box-shadow:30px 35px 50px rgba(0,0,0,.3);
+    }
+    .poster-bottle:before{content:"";position:absolute;width:52px;height:82px;top:-63px;left:44px;background:#300202;border-radius:13px 13px 5px 5px}
+    .poster-bottle .label{top:125px;height:95px;left:-8px;right:-8px}
+    .poster-bottle .label span{font-size:25px}
+
+    .cta{
+      text-align:center;background:#0b0b0b;padding:130px 6vw;
+      position:relative;overflow:hidden;
+    }
+    .cta:before{
+      content:"";position:absolute;width:500px;height:500px;border-radius:50%;
+      left:50%;top:50%;transform:translate(-50%,-50%);
+      background:radial-gradient(circle,rgba(229,9,20,.22),transparent 68%);
+    }
+    .cta > *{position:relative}
+    .cta h2{max-width:850px;margin:auto}
+    .cta p{color:#999;max-width:580px;margin:24px auto 34px;line-height:1.7}
+
+    footer{
+      border-top:1px solid var(--line);padding:30px 6vw;color:#777;
+      display:flex;justify-content:space-between;gap:20px;font-size:13px;
+    }
+
+    @media(max-width:800px){
+      .navlinks{display:none}.menu{display:block}
+      .hero-content,.intro,.experience-grid{grid-template-columns:1fr}
+      .hero{padding-top:90px}
+      .product-stage{min-height:470px}
+      .cards{grid-template-columns:1fr}
+      section{padding:85px 6vw}
+      .intro{gap:30px}
+      .experience-grid{gap:50px}
+      .poster{min-height:420px}
+      footer{flex-direction:column}
+    }
+  </style>
+</head>
+<body>
+  <div class="noise"></div>
+
+  <nav>
+    <a href="#" class="logo"><span class="logo-mark"></span> SUA MARCA</a>
+    <div class="navlinks">
+      <a href="#historia">História</a>
+      <a href="#experiencia">Experiência</a>
+      <a href="#momentos">Momentos</a>
+    </div>
+    <button class="menu" aria-label="Abrir menu">☰</button>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <div>
+          <div class="eyebrow"><i></i> Abra. Sinta. Compartilhe.</div>
+          <h1>O sabor de um <span>momento</span> inesquecível.</h1>
+          <p class="hero-copy">
+            Há coisas que não precisam de legenda. Um sorriso, uma mesa cheia de amigos,
+            uma SUA MARCA bem gelada. Porque os melhores momentos merecem ser vividos por inteiro.
+          </p>
+          <div class="actions">
+            <a href="#experiencia" class="btn primary">Viva o momento →</a>
+            <a href="#historia" class="btn ghost">Conheça a história</a>
+          </div>
+        </div>
+
+        <div class="product-stage" aria-label="Lata realista da SUA MARCA">
+          <div class="glow"></div>
+          <div class="spark s1"></div><div class="spark s2"></div><div class="spark s3"></div>
+          <img class="hero-product" src="sua_marca_produto_hero.png" alt="Lata SUA MARCA gelada com gotas de condensação e gelo">
+        </div>
+      </div>
+    </section>
+
+    <div class="ticker">
+      <div class="ticker-track">
+        <span>Abra a felicidade</span><b>✦</b>
+        <span>Compartilhe o momento</span><b>✦</b>
+        <span>Refresque sua história</span><b>✦</b>
+        <span>Abra a felicidade</span><b>✦</b>
+        <span>Compartilhe o momento</span><b>✦</b>
+        <span>Refresque sua história</span><b>✦</b>
+      </div>
+    </div>
+
+    <section id="historia">
+      <div class="section-inner">
+        <div class="intro">
+          <div>
+            <div class="kicker">Mais que uma bebida</div>
+            <h2>Uma marca feita de momentos.</h2>
+          </div>
+          <p>
+            Desde o primeiro gole até aquela última gota de gelo derretendo no copo,
+            SUA MARCA virou parte de histórias que atravessam gerações. O produto é
+            reconhecível. A sensação é pessoal.
+          </p>
+        </div>
+
+        <div class="cards" id="momentos">
+          <article class="card">
+            <div class="num">01 / CONEXÃO</div><div class="orb"></div>
+            <h3>Na mesa</h3>
+            <p>Comida fica melhor quando a conversa dura mais que o jantar.</p>
+          </article>
+          <article class="card">
+            <div class="num">02 / REFRESCO</div><div class="orb"></div>
+            <h3>Bem gelada</h3>
+            <p>O estalo da abertura. O som do gelo. Aquele primeiro gole.</p>
+          </article>
+          <article class="card">
+            <div class="num">03 / MEMÓRIA</div><div class="orb"></div>
+            <h3>Fica na lembrança</h3>
+            <p>Alguns sabores têm o poder de levar você de volta para um lugar.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="experience" id="experiencia">
+      <div class="section-inner experience-grid">
+        <div>
+          <div class="kicker">A experiência</div>
+          <h2>O melhor momento é o que você compartilha.</h2>
+          <p>
+            Transforme um intervalo comum em uma pequena celebração. Chame alguém,
+            abra uma SUA MARCA e deixe a conversa acontecer.
+          </p>
+          <div class="quote">“Porque felicidade compartilhada sempre parece maior.”</div>
+        </div>
+        <div class="poster">
+          <div class="poster-bottle">
+            <div class="label"><span>SUA MARCA</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="kicker">Seu próximo momento</div>
+      <h2>Abra uma SUA MARCA. Abra espaço para o inesperado.</h2>
+      <p>Uma landing page conceitual criada para transmitir energia, desejo e conexão — sem perder a simplicidade.</p>
+      <a href="#" class="btn primary">Quero viver isso →</a>
+    </section>
+  </main>
+
+  <footer>
+    <span>© 2026 SUA MARCA — conceito visual demonstrativo.</span>
+    <span>Uma experiência digital independente.</span>
+  </footer>
+
+  <script>
+    // Pequenas interações para dar vida à página
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', e => {
+        const target = document.querySelector(link.getAttribute('href'));
+        if(target){ e.preventDefault(); target.scrollIntoView({behavior:'smooth'}); }
+      });
+    });
+
+    const product = document.querySelector('.hero-product');
+    document.addEventListener('mousemove', e => {
+      if (!product || innerWidth < 800) return;
+      const x = (e.clientX / innerWidth - .5) * 8;
+      const y = (e.clientY / innerHeight - .5) * 5;
+      product.style.transform = `rotate(${3 + x * .22}deg) translate(${x}px,${y}px)`;
+    });
+  </script>
+</body>
+</html>
